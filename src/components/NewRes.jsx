@@ -13,13 +13,18 @@ function NewRes() {
     const handleSubmit = (evt) => {
         evt.preventDefault()
         const formData = new FormData(evt.target)
+        formData.set('name', 'name');
+        formData.set('size', 'size');
+        formData.set('path', 'path');
         fetch('http://localhost:8000/api/files/', {
             method: 'POST',
             headers: {
-                Authorization: 'Token 75acb065e72e2a86a4f9a9854c08c8d609392946'
+                Authorization: 'Token 370204786ea83b2fbd61091248615e1138c89c12'
             },
             body: formData
           })
+          .then(response => console.log(response))
+
     }
 
     return (
@@ -27,10 +32,10 @@ function NewRes() {
             <div>NewRes</div>
             <form action="" method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
             <input name="file" type="file"/>
-            <input type="text" name='name'placeholder='name'/>
-            <input type="text" name='size'placeholder='size'/>
+            {/* <input type="text" name='name'placeholder='name'/> */}
+            {/* <input type="text" name='size'placeholder='size'/> */}
             <input type="text" name='comment'placeholder='comment'/>
-            <input type="text" name='path'placeholder='path'/>
+            {/* <input type="text" name='path'placeholder='path'/> */}
             <input type="text" name='url'placeholder='url'/>
             <button type='submit'>Submit</button>
             </form>
