@@ -3,8 +3,8 @@ import React from 'react'
 function Register() {
   return (
 
-<>
-<form action="http://localhost:8000/api/register/" method='post'>
+<>REGISTER
+{/* <form action="http://localhost:8000/api/register/" method='post'>
 <input type="text" name='username'/>
 <input type="text" name='password'/>
 <input type="text" name='first_name'/>
@@ -14,7 +14,7 @@ function Register() {
 <button type='submit'>submit</button>
 
 
-</form>
+</form> */}
 </>)
 }
 

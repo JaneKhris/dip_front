@@ -1,21 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Register from './pages/Register'
+import Home from './pages/Home'
+import Layout from './components/Layout'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import { filesLoader } from './loaders'
+import Files from './pages/Files'
+
 import './App.css'
-import Note from './components/Note'
 import NewRes from './components/NewRes'
-import Register from './components/Register'
+import FilesTest from './components/FilesTest'
+import Users from './pages/Users'
+import Login from './pages/Login'
+
 
 function App() {
-  // const [count, setCount] = useState(0)
-
+  const routes = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/newfile" element={<NewRes />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/files" element={<Files />}  />
+      </Route>
+    )
+  );
   return (
-    <>
-    {/* <Note/> */}
-    <NewRes/>
-    {/* <Register/> */}
-      </>
-  )
+    <RouterProvider router={routes} />
+
+  );
 }
 
-export default App
+// function App() {
+//   return (
+//     <Files/>
+//   )
+// }
+
+export default App;
+
+
