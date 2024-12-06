@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+  const {token, profile} = useContext(AuthContext)
+
+  const navigate = useNavigate()
+
+
+
   return (
-    <>
-    <a href='http://localhost:3000/register'>Регистрация</a>
-    <a href='http://localhost:3000/login'>Войти</a>
+    <> 
+    {!token && 
+      <div>HI!
+
+    </div>}
+    {token && 
+    <div>Hello,{profile.name}
+    </div>
+    }
+  
     </>
   )
 }

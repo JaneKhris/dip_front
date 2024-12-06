@@ -1,47 +1,45 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 function Login() {
 
-    const handleSubmit = (evt) => {
-        evt.preventDefault()
-        const formData = new FormData(evt.target)
-        fetch('http://localhost:8000/api/token/login/', {
+    const navigate = useNavigate()
+    const {setToken, setProfile} = useContext(AuthContext)
+
+
+
+    async function handleLogin(event) {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        fetch(import.meta.env.VITE_PORT + '/auth/login/', {
             method: 'POST',
-            // headers: {
-            //     Authorization: 'Token 69ef9510931928aa89a1f9d211ee1fa27a299a6c'
-            // },
             body: formData
-          })
-          .then(response => response.json())
-          .then(item => {
-            console.log(item)
-            localStorage.setItem('token', item.auth_token)
         })
-    }
-
-    async function handleLogin(evetn) {
-        evt.preventDefault()
-        const formData = new FormData(evt.target)
-        let res = await fetch('http://localhost:8000/api/token/login/', {
-            method: 'POST',
-            body: formData
-          })
-        let token = await res.json().auth_token
-
-        let userRes = await fetch(`http://localhost:8000/api/users/${formData.get('username')}`)
-        let userIsStaff = await userRes.json.is_staff
-
-        localStorage.setItem('token',token)
-        localStorage.setItem('user_isstaff', userIsStaff)
-        
+            .then(responce => responce.json())
+            .then(item => {
+                console.log(item)
+                setToken(item.token)
+                setProfile({
+                    id: item.user_id,
+                    name: item.user_name,
+                    isStaff: item.is_staff
+                })
+                localStorage.setItem('token', item.token)
+                localStorage.setItem('user_name', item.user_name)
+                localStorage.setItem('user_id', item.user_id)
+                localStorage.setItem('user_isstaff', item.is_staff)
+            })
+        navigate('/')
+            
     }
 
     return (
         <>
             <div>Login</div>
-            <form action="" method='post' onSubmit={handleSubmit}>
-                <input type="text" name='username'placeholder='username'/>
-                <input type="text" name='password'placeholder='password'/>
+            <form action="" method='post' onSubmit={handleLogin}>
+                <input type="text" name='username' placeholder='username' />
+                <input type="text" name='password' placeholder='password' />
                 <button type='submit'>Submit</button>
             </form>
         </>
