@@ -20,3 +20,14 @@
 header, footer {
   background-color: cadetblue;
 }
+
+.tooltipp-error{
+  position: absolute;
+  width: 50%;
+  height: 100px;
+  background-color: peachpuff;
+}
+
+.self {
+  background-color: lightpink
+}

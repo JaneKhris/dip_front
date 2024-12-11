@@ -33,7 +33,7 @@ function Files() {
 
   useEffect(() => {
     if (token) {
-      fetch(import.meta.env.VITE_PORT + `/files/?owner=${getId()}`, {
+      fetch(import.meta.env.VITE_PORT + `/files/?owner=${getId()}&ordering=name`, {
         method: 'GET',
         headers: {
           Authorization: `Token ${token}`

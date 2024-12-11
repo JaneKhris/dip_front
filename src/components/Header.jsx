@@ -5,7 +5,7 @@ import Nav from './Nav'
 
 function Header() {
   const navigate = useNavigate()
-  const { setToken, setProfile, token } = useContext(AuthContext)
+  const { setToken, setProfile, token ,profile} = useContext(AuthContext)
 
 
   const handleLogout = () => {
@@ -29,15 +29,15 @@ function Header() {
 
   return (
     <header>
-      <div>Header "{token}"</div>
+      <div>Hello!{profile.name}</div>
       {token &&
         <button onClick={handleLogout}>Logout</button>}
-      {!token && 
+      {/* {!token && 
       <div>
             <button onClick={()=> {navigate('/register')}}>Регистрация</button>
             <button onClick={()=> {navigate('/login')}}>Войти</button>
       </div>
-      }
+      } */}
     </header>
   )
 }

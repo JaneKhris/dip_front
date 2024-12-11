@@ -6,7 +6,7 @@ function AuthProvider({children}) {
     const [profile, setProfile] = useState({
         id: localStorage.getItem('user_id'),
         name: localStorage.getItem('user_name'),
-        isStaff: localStorage.getItem('user_isstaff'),
+        isStaff: localStorage.getItem('user_isstaff') == 'true' ? true : false,
     })
 
   return (
