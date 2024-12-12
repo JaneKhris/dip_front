@@ -5,7 +5,7 @@ import UserItem from './UserItem';
 
 function Users() {
 
-  const {token, profile} = useContext(AuthContext)
+  const { token, profile } = useContext(AuthContext)
   const [users, setUsers] = useState([])
 
 
@@ -20,26 +20,40 @@ function Users() {
       .then((response) => response.json())
       .then(item => setUsers(item))
 
-    
+
   }, [])
 
 
   return (
     <>
-      {profile.isStaff && 
-      <>
+      {profile.isStaff &&
+        <>
 
-        <div className="users">
+          <div className="users">
+            <table className="users__table">
+              <thead className='users__table head'>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>email</th>
+                <th>Number of files</th>
+                <th>Total size</th>
+                <th>Admin</th>
+                <th>Delete</th>
+                <th>Storage</th>
+              </thead>
+              <tbody>
+              {users.map((user) =>
+                <UserItem className='user__item' key={user.id} user={user}></UserItem>
+              )}
 
-          <h1>Users</h1>
-          <ul className="users__item">
-            {users.map((user) =>
-              <UserItem className='user__item' key={user.id} user={user}></UserItem>
-            )}
-          </ul>
+              </tbody>
+            </table>
 
-        </div>
-      </>}
+
+
+          </div>
+        </>}
       <div>No token</div>
     </>
   )

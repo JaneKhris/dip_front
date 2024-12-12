@@ -23,15 +23,18 @@ function FileEdit(props) {
 
 
   return (
-    <div>
-      {file.name}
-      <form action="" onSubmit={props.handleSubmit}>
-        <input name="name" type="text" defaultValue={file.name} />
-        <input name="comment" type="text" defaultValue={file.comment} />
-        <button>Submit</button>
-      </form>
-
-    </div>
+    <tr className='file-edit'>
+      <td colSpan={8}>
+        Edit file
+        <form action="" onSubmit={props.handleSubmit}>
+            <label htmlFor="name">Name: </label>
+            <input name="name" type="text" defaultValue={file.name} />
+            <label htmlFor="comment">Comment: </label>
+            <input name="comment" type="text" defaultValue={file.comment} />
+          <button>Edit</button>
+        </form>
+      </td>
+    </tr>
   )
 }
 

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import TooltipError from './TooltipError'
+import Notification from './Notification'
 
 function Login() {
 
@@ -44,7 +44,7 @@ function Login() {
                     localStorage.setItem('user_name', item.user_name)
                     localStorage.setItem('user_id', item.user_id)
                     localStorage.setItem('user_isstaff', item.is_staff)
-                    navigate('/')
+                    navigate('/files/')
 
                 }
             })
@@ -53,12 +53,12 @@ function Login() {
     return (
         <>
             {errorUser &&
-                <TooltipError
-                    field={'user'}
+                <Notification
+                    field={'user does not exist'}
                     handleOk={() => setErrorUser(false)} />}
             {errorPassword &&
-                <TooltipError
-                    field={'password'}
+                <Notification
+                    field={'the password is incorrect'}
                     handleOk={() => setErrorPassword(false)} />}
             <div>Login</div>
             <form action="" method='post' onSubmit={handleLogin}>

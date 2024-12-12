@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 
 function AddFile() {
+
+    const naigate = useNavigate()
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
@@ -24,6 +27,8 @@ function AddFile() {
                 evt.target.reset()
             }
         })
+
+        naigate('/files')
     }
 
     return (

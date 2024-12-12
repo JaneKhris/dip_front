@@ -3,14 +3,11 @@ import React, { useEffect } from 'react'
 function TooltipError(props) {
 
   useEffect(() => {
-
-
   }, [])
 
-
   return (
-    <div className='tooltipp-error'>
-      <div>{props.field} error!</div>
+    <div className='notification'>
+      <div>{props.field}</div>
       <button onClick={props.handleOk}>Ok</button>
     </div>
   )

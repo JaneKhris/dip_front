@@ -11,13 +11,10 @@ function Files() {
 
   const { token, profile } = useContext(AuthContext)
 
-
   const [files, setFiles] = useState([])
-
-  // const {files} = useLoaderData()
-
   const [fileId, setFileId] = useState(0)
   const [addFile, setAddFile] = useState(false)
+
   const navigate = useNavigate()
 
   const { id } = useParams()
@@ -28,8 +25,6 @@ function Files() {
     }
     return profile.id
   }
-
-
 
   useEffect(() => {
     if (token) {
@@ -44,10 +39,8 @@ function Files() {
     }
   }, [])
 
-
   const handleSubmitEdited = (evt) => {
     evt.preventDefault()
-
     const formData = new FormData(evt.target)
     fetch(import.meta.env.VITE_PORT + `/files/${fileId}/`, {
       method: 'PATCH',
@@ -78,29 +71,42 @@ function Files() {
           }
 
           <div className="files">
+            <table className="files__table">
+              <thead className='files__table head'>
+                <tr>
+                  <th>Name</th>
+                  <th>Size</th>
+                  <th>Comment</th>
+                  <th>Downloaded at</th>
+                  <th>Download</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                  <th>Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                {files.map((file) =>
+                  <>
+                    <tr key={file.id}>
+                      <FileItem
+                        className='file__item'
+                        file={file}
+                        handleEdit={() => { setFileId(fileId ? 0 : file.id) }}
+                      />
+                    </tr>
+                    {fileId == file.id &&
+                      <FileEdit
+                        id={file.id}
+                        handleSubmit={handleSubmitEdited}
+                      />}
+                  </>
+                )}
 
-            <h1>Files page</h1>
-            <ul className="files__item">
-              {files.map((file) =>
-                <div key={file.id}>
-                  <FileItem
-                    className='file__item'
-                    file={file}
-                    handleEdit={() => { setFileId(fileId ? 0 : file.id) }}
-                  >
+              </tbody>
+            </table>
 
-                  </FileItem>
-                  {fileId == file.id &&
-                    <FileEdit
-                      id={file.id}
-                      handleSubmit={handleSubmitEdited}
-                    />}
-                </div>
-              )}
-            </ul>
           </div>
         </>}
-      <div>No token</div>
     </>
   )
 }

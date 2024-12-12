@@ -25,19 +25,18 @@ function Header() {
       name: '',
       isStaff: false
     })
+    navigate('/')
   }
 
   return (
-    <header>
-      <div>Hello!{profile.name}</div>
+    <header className='header'>
+      <h3 className='header-title'>MyFiles</h3>
       {token &&
-        <button onClick={handleLogout}>Logout</button>}
-      {/* {!token && 
-      <div>
-            <button onClick={()=> {navigate('/register')}}>Регистрация</button>
-            <button onClick={()=> {navigate('/login')}}>Войти</button>
-      </div>
-      } */}
+      <div className='header-profile'>
+            <div className='app-title'>{profile.name}</div>
+
+        <button className='btn-logout' onClick={handleLogout}>Logout</button>
+        </div>}
     </header>
   )
 }

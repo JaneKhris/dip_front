@@ -13,7 +13,7 @@ function Nav() {
     const getNavItems = (profile) => {
         if (!profile.id) {
             return [
-                { label: "home", link: "/" },
+                // { label: "home", link: "/" },
                 { label: "register", link: "/register" },
                 { label: "login", link: "/login" },
             ]
@@ -21,14 +21,14 @@ function Nav() {
             if (profile.isStaff) {
                 console.log(typeof(profile.isStaff))
                 return [
-                    { label: "home", link: "/" },
+                    { label: "add file", link: "/add-file" },
                     { label: "my files", link: "/files" },
                     { label: "users", link: "/users" },
                     { label: "profile", link: "/profile" },
                 ];
             }
             return [
-                { label: "home", link: "/" },
+                { label: "add file", link: "/add-file" },
                 { label: "my files", link: "/files" },
                 { label: "profile", link: "/profile" },
             ];

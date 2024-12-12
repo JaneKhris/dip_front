@@ -47,7 +47,8 @@ function UserItem(props) {
             .then(response => {
                 if (response.ok) {
                     evt.target.closest('.user-container').remove()
-                }})
+                }
+            })
     }
 
     const handleUserStaffChange = (evt) => {
@@ -64,32 +65,42 @@ function UserItem(props) {
             .then(response => console.log(response))
     }
 
+    const handleToStorage = () => {
+        navigate(`/users/storage/${props.user.id}`)
+    }
+
 
     return (
-        <div className={`user-container ${self}`}>
-            {self && <div>YOU</div>}
-            <span className='user-username'>Username: {props.user.username}  </span>
-            <span className='user-firstname'>First Name: {props.user.first_name}  </span>
-            <span className='user-lastname'>Last Name: {props.user.last_name}  </span>
-            <span className='user-email'>email: {props.user.email}</span>
-            {!self &&
-                <>
-                    <label htmlFor="name">Is Staff:</label>
-                    <input
-                        onChange={handleUserStaffChange}
-                        type="checkbox"
-                        id="name"
-                        name="name"
-                        defaultChecked={props.user.is_staff}
-                    />
-                    <button onClick={handleUserDelete}>Delete</button>
-                </>
-            }
-            <div>Count:{files.length}</div>
-            <div>Size: {getSize(size)}</div>
-            <button onClick={() => { navigate(`/users/storage/${props.user.id}`) }}>Storage</button>
+        <tr className={`user-row ${self}`}>
+            <td className='user-username'>{props.user.username}  </td>
+            <td className='user-firstname'>{props.user.first_name}  </td>
+            <td className='user-lastname'>{props.user.last_name}  </td>
+            <td className='user-email'>{props.user.email}</td>
+            <td>Count:{files.length}</td>
+            <td>Size: {getSize(size)}</td>
 
-        </div>
+            <td>
+                {!self &&
+                    <>
+                        <label htmlFor="name">Is Staff:</label>
+                        <input
+                            onChange={handleUserStaffChange}
+                            type="checkbox"
+                            id="name"
+                            name="name"
+                            defaultChecked={props.user.is_staff}
+                        />
+                    </>
+                }
+            </td>
+            <td>
+                {!self &&
+                    <button onClick={handleUserDelete}>Delete</button>
+                }
+            </td>
+            <button onClick={handleToStorage}>Storage</button>
+
+        </tr>
     )
 }
 
