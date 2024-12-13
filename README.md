@@ -1,8 +1,16 @@
-# React + Vite
+### Для запуска приложения:
+- установить пакеты `npm install`
+- запустить приложение `npm run dev`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Сделать
+- в форме регистрации сделать пользовательские сообщеия об ошибках валидации
+- после успешной регистрации выполнить переход (решить куда)
+- компонент Profile
+- всплвающее окно, когда ссылка скопирована в буфер 
+- в навигации выделение активной страницы
 
-Currently, two official plugins are available:
+### Вопросы
+- могу ли я использовать loaders для компонентов, если мне надо в него передавать параметры, token например?
+- не могу понять, как лучше сделать перерендер компонента Files, в случае изменения одного из файлов. Ввести еше одну переменную state будет ок?
+- на странице /files возникает [warning](/questions/key.PNG). Как с этим обойтись лучше, чтобы компонент FileEdit появлялся в таблице после редактируемого элемента?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
