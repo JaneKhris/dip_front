@@ -3,16 +3,14 @@ import Home from './pages/Home'
 import Layout from './components/Layout'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import Files from './pages/Files'
-import File from './pages/File'
+
 
 
 import './App.css'
-import FilesTest from './components/FilesTest'
 import Users from './pages/Users'
 import Login from './pages/Login'
 import AddFile from './pages/AddFile'
 import { NotFound } from './pages/NotFound'
-import { fileLoader } from './loaders'
 import { useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
 import Profile from './pages/Profile'

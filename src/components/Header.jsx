@@ -1,37 +1,44 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import Nav from './Nav'
 
 function Header() {
   const navigate = useNavigate()
-  const { setToken, setProfile, token ,profile} = useContext(AuthContext)
+  const { isAuth, setIsAuth, profile, setProfile } = useContext(AuthContext)
+
 
 
   const handleLogout = () => {
-    fetch('http://localhost:8000/api/auth/logout/', {
-      method: 'POST',
-      headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`
+    fetch(import.meta.env.VITE_PORT + '/auth/logout/', {
+      credentials: 'include',
+    })
+
+
+    .then((res) => {
+      console.log(res)
+      if (res.statusText == 'OK') {
+        localStorage.removeItem('isAuth')
+        localStorage.removeItem('user_name')
+        localStorage.removeItem('user_isstaff')
+        localStorage.removeItem('user_id')
+        setIsAuth(false)
+        setProfile({
+          id: '',
+          name: '',
+          isStaff: false
+        })
+        navigate('/')
+    
       }
     })
-    localStorage.removeItem('token')
-    localStorage.removeItem('user_name')
-    localStorage.removeItem('user_isstaff')
-    localStorage.removeItem('user_id')
-    setToken('')
-    setProfile({
-      id: '',
-      name: '',
-      isStaff: false
-    })
-    navigate('/')
+    .catch(err => console.error(err));
+
   }
 
   return (
     <header className='header'>
       <h3 className='header-title'>MyFiles</h3>
-      {token &&
+      {isAuth &&
       <div className='header-profile'>
             <div className='app-title'>{profile.name}</div>
 

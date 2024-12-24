@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import Cookies from 'js-cookie';
 
 
 function AddFile() {
@@ -14,12 +15,17 @@ function AddFile() {
         formData.set('size', 0);
         formData.set('path', 'path');
         formData.set('url', 'url');
+        console.log(formData.get('path'))
+
+        const CSRFToken = Cookies.get('csrftoken')
+
         fetch(import.meta.env.VITE_PORT + '/files/', {
+            credentials: 'include',
             method: 'POST',
             headers: {
-                Authorization: `Token ${localStorage.getItem('token')}`
-            },
-            body: formData
+                "X-CSRFToken": CSRFToken
+              },
+            body: formData,
           })
           .then(response => {
             console.log(response)
@@ -34,7 +40,7 @@ function AddFile() {
     return (
         <>
             <div>Add File</div>
-            <form action="" method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
+            <form encType='multipart/form-data' onSubmit={handleSubmit}>
             <input name="file" type="file"/>
             <input type="text" name='comment'placeholder='comment'/>
             <button type='submit'>Submit</button>

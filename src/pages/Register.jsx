@@ -47,7 +47,7 @@ function Register() {
           field={errorTitle}
           handleOk={() => setErrorTitle('')}
         />}
-      <form action="" method='post' onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input type="text" name='username' placeholder='username' pattern='[a-zA-Z][a-zA-Z0-9]{3,19}' required />
         <input type="text" name='password' placeholder='password' pattern='^(?=.*\d)(?=.*[A-Z])(?=.*\W).{6,}$' required />
         <input type="text" name='password_copy' placeholder='password_copy' pattern='^(?=.*\d)(?=.*[A-Z])(?=.*\W).{6,}$' required />

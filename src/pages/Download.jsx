@@ -7,14 +7,6 @@ function Download() {
         document.location.href = import.meta.env.VITE_PORT + `/storage/${str}`
       }
     
-
-    // useEffect(() => {
-    //     // document.location.href = import.meta.env.VITE_PORT + `/storage/${str}`
-
-    //      fetch(import.meta.env.VITE_PORT + `/storage/${str}`)
-    // },[])
-
-
   return (
     <button onClick={handleDownload}>Download</button>
   )

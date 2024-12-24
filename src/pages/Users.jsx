@@ -1,26 +1,28 @@
 import { useEffect, useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import UserItem from './UserItem';
+import Cookies from 'js-cookie';
 
 
 function Users() {
 
-  const { token, profile } = useContext(AuthContext)
+  const { isAuth, profile } = useContext(AuthContext)
   const [users, setUsers] = useState([])
 
+  const CSRFToken = Cookies.get('csrftoken')
 
 
   useEffect(() => {
+    console.log(profile.isStaff)
     fetch(import.meta.env.VITE_PORT + "/users/?ordering=username", {
+      credentials: 'include',
       method: 'GET',
       headers: {
-        Authorization: `Token ${token}`
+        "X-CSRFToken": CSRFToken
       },
     })
       .then((response) => response.json())
       .then(item => setUsers(item))
-
-
   }, [])
 
 
@@ -54,7 +56,6 @@ function Users() {
 
           </div>
         </>}
-      <div>No token</div>
     </>
   )
 }

@@ -1,15 +1,17 @@
 import React from 'react'
-import { useLoaderData, Await, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState, useContext } from "react"
 import FileItem from './FileItem';
 import { AuthContext } from '../context/AuthContext';
 import FileEdit from './FileEdit';
 import AddFile from './AddFile';
 
+import Cookies from 'js-cookie';
+
 
 function Files() {
 
-  const { token, profile } = useContext(AuthContext)
+  const { isAuth, profile } = useContext(AuthContext)
 
   const [files, setFiles] = useState([])
   const [fileId, setFileId] = useState(0)
@@ -26,12 +28,16 @@ function Files() {
     return profile.id
   }
 
+  const CSRFToken = Cookies.get('csrftoken')
+
   useEffect(() => {
-    if (token) {
+    if (isAuth) {
+      
       fetch(import.meta.env.VITE_PORT + `/files/?owner=${getId()}&ordering=name`, {
+        credentials: 'include',
         method: 'GET',
         headers: {
-          Authorization: `Token ${token}`
+          "X-CSRFToken": CSRFToken
         },
       })
         .then((response) => response.json())
@@ -39,25 +45,27 @@ function Files() {
     }
   }, [])
 
+
   const handleSubmitEdited = (evt) => {
     evt.preventDefault()
     const formData = new FormData(evt.target)
     fetch(import.meta.env.VITE_PORT + `/files/${fileId}/`, {
+      credentials: 'include',
       method: 'PATCH',
       headers: {
-        Authorization: `Token ${token}`
+        "X-CSRFToken": CSRFToken
       },
       body: formData
     })
       .then(response => console.log(response))
 
     setFileId(0)
+    setUpd(!upd)
   }
-
 
   return (
     <>
-      {token &&
+      {true &&
         <>
           {!id &&
             <div>

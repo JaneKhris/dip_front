@@ -2,22 +2,25 @@ import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { getSize } from '../utils/utils'
+import Cookies from 'js-cookie'
+
 
 function UserItem(props) {
 
-    const { token, profile } = useContext(AuthContext)
+    const { isAuth, profile } = useContext(AuthContext)
     const [files, setFiles] = useState([])
     const [size, setSize] = useState('')
     const [self, setSelf] = useState('')
     const navigate = useNavigate()
 
-
-
+    const CSRFToken = Cookies.get('csrftoken')
+    
     useEffect(() => {
         fetch(import.meta.env.VITE_PORT + `/files/?owner=${props.user.id}`, {
+            credentials: 'include',
             method: 'GET',
             headers: {
-                Authorization: `Token ${token}`
+                "X-CSRFToken": CSRFToken
             },
         })
             .then((response) => response.json())
@@ -39,9 +42,10 @@ function UserItem(props) {
 
     const handleUserDelete = (evt) => {
         fetch(import.meta.env.VITE_PORT + `/users/${props.user.id}/`, {
+            credentials: 'include',
             method: 'DELETE',
             headers: {
-                Authorization: `Token ${token}`
+                "X-CSRFToken": CSRFToken
             },
         })
             .then(response => {
@@ -53,9 +57,10 @@ function UserItem(props) {
 
     const handleUserStaffChange = (evt) => {
         fetch(import.meta.env.VITE_PORT + `/users/${props.user.id}/`, {
+            credentials: 'include',
             method: 'PATCH',
             headers: {
-                Authorization: `Token ${token}`,
+                "X-CSRFToken": CSRFToken,
                 'Content-type': 'application/json; charset=UTF-8',
             },
             body: JSON.stringify({

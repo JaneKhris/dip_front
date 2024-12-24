@@ -1,15 +1,18 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { getSize } from '../utils/utils'
+import Cookies from 'js-cookie'
 
 function FileItem(props) {
-  const { token } = useContext(AuthContext)
+
+  const CSRFToken = Cookies.get('csrftoken')
 
   const handleFileDelete = (evt) => {
     fetch(import.meta.env.VITE_PORT + `/files/${props.file.id}/`, {
+      credentials: 'include',
       method: 'DELETE',
       headers: {
-        Authorization: `Token ${token}`
+        "X-CSRFToken": CSRFToken
       },
     })
       .then(response => {
@@ -25,9 +28,10 @@ function FileItem(props) {
 
   const handleCopyLink = async () => {
     fetch(import.meta.env.VITE_PORT + `/files/${props.file.id}/`, {
+      credentials: 'include',
       method: 'GET',
       headers: {
-        Authorization: `Token ${token}`
+        "X-CSRFToken": CSRFToken
       },
     })
       .then(response => response.json())

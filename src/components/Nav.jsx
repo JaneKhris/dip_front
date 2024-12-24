@@ -8,12 +8,9 @@ function Nav() {
 
     const { profile } = useContext(AuthContext)
 
-    // let navItems = []
-
     const getNavItems = (profile) => {
         if (!profile.id) {
             return [
-                // { label: "home", link: "/" },
                 { label: "register", link: "/register" },
                 { label: "login", link: "/login" },
             ]
@@ -35,16 +32,7 @@ function Nav() {
         }
     }
 
-    // useEffect(()=>{
-    //     navItems = getNavItems(profile)
-    //     console.log(profile.isStaff)
-    //     console.log(navItems)
-
-        
-    // },[])
     const navItems = getNavItems(profile)
-
-
 
 
     return (

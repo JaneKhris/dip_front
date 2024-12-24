@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 function AuthProvider({children}) {
-    const [token,setToken] = useState(localStorage.getItem('token'))
+    const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') == 'true' ? true : false)
     const [profile, setProfile] = useState({
         id: localStorage.getItem('user_id'),
         name: localStorage.getItem('user_name'),
-        isStaff: localStorage.getItem('user_isstaff') == 'true' ? true : false,
+        isStaff: localStorage.getItem('is_staff') == 'true' ? true : false,
     })
 
   return (
-    <AuthContext.Provider value={{token, setToken, profile, setProfile}}>
+    <AuthContext.Provider value={{isAuth, setIsAuth, profile, setProfile}}>
         {children}
     </AuthContext.Provider>
   )

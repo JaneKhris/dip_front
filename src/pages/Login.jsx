@@ -6,19 +6,17 @@ import Notification from './Notification'
 function Login() {
 
     const navigate = useNavigate()
-    const { setToken, setProfile } = useContext(AuthContext)
+    const { setIsAuth, setProfile } = useContext(AuthContext)
 
     const [errorUser, setErrorUser] = useState(false)
     const [errorPassword, setErrorPassword] = useState(false)
-
-
-
 
 
     async function handleLogin(event) {
         event.preventDefault()
         const formData = new FormData(event.target)
         fetch(import.meta.env.VITE_PORT + '/auth/login/', {
+            credentials: 'include',
             method: 'POST',
             body: formData
         })
@@ -33,14 +31,14 @@ function Login() {
                 return response.json()
             })
             .then(item => {
-                if (item.token) {
-                    setToken(item.token)
+                if (item.detail) {
+                    setIsAuth(true)
                     setProfile({
                         id: item.user_id,
                         name: item.user_name,
                         isStaff: item.is_staff
                     })
-                    localStorage.setItem('token', item.token)
+                    localStorage.setItem('isAuth', true)
                     localStorage.setItem('user_name', item.user_name)
                     localStorage.setItem('user_id', item.user_id)
                     localStorage.setItem('user_isstaff', item.is_staff)
@@ -61,7 +59,7 @@ function Login() {
                     field={'the password is incorrect'}
                     handleOk={() => setErrorPassword(false)} />}
             <div>Login</div>
-            <form action="" method='post' onSubmit={handleLogin}>
+            <form onSubmit={handleLogin}>
                 <input type="text" name='username' placeholder='username' />
                 <input type="text" name='password' placeholder='password' />
                 <button type='submit'>Submit</button>
