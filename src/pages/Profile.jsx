@@ -8,11 +8,13 @@ function Profile() {
   const { isAuth, profile } = useContext(AuthContext)
 
   return (
-  
-    <div className='profile'>Profile
-    <div> {isAuth && <span>isAuth</span>}</div>
-    <div> {profile.isStaff && <span>isStaff</span>}</div>
-    </div>
+    <>
+      {isAuth &&
+        <div className='profile'>Profile:
+          <div> Usrename: {profile.name}</div>
+          <div> {profile.isStaff && <span>isStaff</span>}</div>
+        </div>}
+    </>
   )
 }
 

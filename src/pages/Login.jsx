@@ -12,6 +12,7 @@ function Login() {
     const [errorPassword, setErrorPassword] = useState(false)
 
 
+
     async function handleLogin(event) {
         event.preventDefault()
         const formData = new FormData(event.target)
@@ -21,7 +22,6 @@ function Login() {
             body: formData
         })
             .then(response => {
-                console.log(response.status)
                 if (response.status == '400') {
                     setErrorPassword(true)
                 }
@@ -31,7 +31,7 @@ function Login() {
                 return response.json()
             })
             .then(item => {
-                if (item.detail) {
+                if (item.user_id) {
                     setIsAuth(true)
                     setProfile({
                         id: item.user_id,

@@ -15,7 +15,9 @@ function AddFile() {
         formData.set('size', 0);
         formData.set('path', 'path');
         formData.set('url', 'url');
-        console.log(formData.get('path'))
+        // const 
+        formData.get('file')
+        console.log(formData.get('file')['name'])
 
         const CSRFToken = Cookies.get('csrftoken')
 

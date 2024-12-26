@@ -7,7 +7,7 @@ import Notification from './Notification'
 function Register() {
   const navigate = useNavigate()
 
-  const [errorTitle, setErrorTitle] = useState('')
+  const [noteTitle, setNoteTitle] = useState('')
 
 
   const handleSubmit = (evt) => {
@@ -25,27 +25,24 @@ function Register() {
         .then(item => {
           console.log(item)
           if (item.id) {
-            setErrorTitle(`user ${item.username} registered`)
+            setNoteTitle(`user ${item.username} registered`)
+            navigate('/')
           } else {
-            console.log(Object.values(item)[0])
-            setErrorTitle(Object.values(item)[0][0])
-            console.log('errorTitle')
+            setNoteTitle(Object.values(item)[0][0])
           }
         }
         )
     } else {
-      setErrorTitle('No match')
+      setNoteTitle('No match')
     }
-    navigate('/')
-
   }
   return (
 
     <>
-      {errorTitle &&
+      {noteTitle &&
         <Notification
-          field={errorTitle}
-          handleOk={() => setErrorTitle('')}
+          field={noteTitle}
+          handleOk={() => setNoteTitle('')}
         />}
       <form onSubmit={handleSubmit}>
         <input type="text" name='username' placeholder='username' pattern='[a-zA-Z][a-zA-Z0-9]{3,19}' required />

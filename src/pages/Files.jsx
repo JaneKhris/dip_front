@@ -78,7 +78,7 @@ function Files() {
             <button onClick={() => { navigate('/users') }}>List of users</button>
           }
 
-          <div className="files">
+          {files[0] && <div className="files">
             <table className="files__table">
               <thead className='files__table head'>
                 <tr>
@@ -113,7 +113,7 @@ function Files() {
               </tbody>
             </table>
 
-          </div>
+          </div>}
         </>}
     </>
   )
