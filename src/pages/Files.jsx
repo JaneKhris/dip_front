@@ -60,7 +60,6 @@ function Files() {
       .then(response => console.log(response))
 
     setFileId(0)
-    setUpd(!upd)
   }
 
   return (
@@ -95,7 +94,7 @@ function Files() {
               <tbody>
                 {files.map((file) =>
                   <>
-                    <tr key={file.id}>
+                    <tr className='file-row' key={file.id}>
                       <FileItem
                         className='file__item'
                         file={file}

@@ -2,27 +2,37 @@ import { useEffect, useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import UserItem from './UserItem';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../utils/utils';
 
 
 function Users() {
 
-  const { isAuth, profile } = useContext(AuthContext)
+  const { isAuth, setIsAuth, profile, setProfile } = useContext(AuthContext)
   const [users, setUsers] = useState([])
+  const navigate = useNavigate()
 
   const CSRFToken = Cookies.get('csrftoken')
 
+  
+
 
   useEffect(() => {
-    console.log(profile.isStaff)
-    fetch(import.meta.env.VITE_PORT + "/users/?ordering=username", {
-      credentials: 'include',
-      method: 'GET',
-      headers: {
-        "X-CSRFToken": CSRFToken
-      },
-    })
-      .then((response) => response.json())
-      .then(item => setUsers(item))
+    if (CSRFToken) {
+      console.log(profile.isStaff)
+      fetch(import.meta.env.VITE_PORT + "/users/?ordering=username", {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+          "X-CSRFToken": CSRFToken
+        },
+      })
+        .then((response) => response.json())
+        .then(item => setUsers(item))
+    } else {
+      logout(setIsAuth, setProfile, navigate)
+      navigate('/')
+    }
   }, [])
 
 

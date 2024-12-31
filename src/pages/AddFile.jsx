@@ -43,8 +43,8 @@ function AddFile() {
         <>
             <div>Add File</div>
             <form encType='multipart/form-data' onSubmit={handleSubmit}>
-            <input name="file" type="file"/>
-            <input type="text" name='comment'placeholder='comment'/>
+            <input name="file" type="file" required/>
+            <input type="text" name='comment' placeholder='comment' />
             <button type='submit'>Submit</button>
             </form>
         </>

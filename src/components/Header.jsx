@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { logout } from '../utils/utils'
 
 function Header() {
   const navigate = useNavigate()
@@ -17,18 +18,18 @@ function Header() {
     .then((res) => {
       console.log(res)
       if (res.statusText == 'OK') {
-        localStorage.removeItem('isAuth')
-        localStorage.removeItem('user_name')
-        localStorage.removeItem('user_isstaff')
-        localStorage.removeItem('user_id')
-        setIsAuth(false)
-        setProfile({
-          id: '',
-          name: '',
-          isStaff: false
-        })
-        navigate('/')
-    
+        logout(setIsAuth,setProfile, navigate)
+        // localStorage.removeItem('isAuth')
+        // localStorage.removeItem('user_name')
+        // localStorage.removeItem('user_isstaff')
+        // localStorage.removeItem('user_id')
+        // setIsAuth(false)
+        // setProfile({
+        //   id: '',
+        //   name: '',
+        //   isStaff: false
+        // })
+        // navigate('/')
       }
     })
     .catch(err => console.error(err));
